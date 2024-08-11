@@ -1,31 +1,49 @@
 package com.keyin.binarytree.controller;
 
 import com.keyin.binarytree.model.BSTree;
+import com.keyin.binarytree.model.BSTreeEntity;
 import com.keyin.binarytree.service.BSTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping("/api")
 public class BSTreeController {
 
-    // Assuming you have a service to handle database operations
     @Autowired
-    private BSTreeService bsTreeService;
+    private BSTreeService bstreeService;
 
     @PostMapping("/process-numbers")
-    public ResponseEntity<Map<String, Object>> processNumbers(@RequestBody List<Integer> numbers) {
-        BSTree bst = new BSTree();
-        numbers.forEach(bst::insert);
+    public ResponseEntity<BSTreeEntity> processNumbers(@RequestBody List<Integer> numbers) {
+        BSTree tree = bstreeService.createTree(numbers);
+        String treeJson = bstreeService.convertTreeToJson(tree);
 
-        List<Integer> treeList = bst.toList();
+        BSTreeEntity treeEntity = new BSTreeEntity(
+                numbers.stream().map(String::valueOf).collect(Collectors.joining(",")),
+                treeJson
+        );
+        BSTreeEntity savedEntity = bstreeService.saveTreeEntity(treeEntity);
 
-        // Save numbers and tree structure to the database\
-        return ResponseEntity.ok(Map.of("tree", treeList));
+        return ResponseEntity.ok(savedEntity);
+    }
+
+    @GetMapping("/previous-trees")
+    public ResponseEntity<List<BSTreeEntity>> getPreviousTrees() {
+        List<BSTreeEntity> trees = bstreeService.getAllTrees();
+        return ResponseEntity.ok(trees);
+    }
+
+    @GetMapping("/tree/{id}")
+    public ResponseEntity<BSTreeEntity> getTreeById(@PathVariable Long id) {
+        BSTreeEntity treeEntity = bstreeService.getTreeById(id);
+        if (treeEntity != null) {
+            return ResponseEntity.ok(treeEntity);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
-

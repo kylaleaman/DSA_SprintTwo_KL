@@ -38,4 +38,3 @@ public class BSTreeNode {
         this.right = right;
     }
 }
-

@@ -65,7 +65,7 @@ public class BSTreeEntity {
 
     @Override
     public String toString() {
-        return "TreeEntity{" +
+        return "BSTreeEntity{" +
                 "id=" + id +
                 ", createdAt=" + createdAt +
                 ", numbers='" + numbers + '\'' +

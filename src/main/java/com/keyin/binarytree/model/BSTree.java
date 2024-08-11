@@ -37,7 +37,7 @@ public class BSTree {
         if (node != null) {
             inOrderTraversal(node.getLeft(), result);
             result.add(node.getValue());
-            inOrderTraversal(node.getRight(),result);
+            inOrderTraversal(node.getRight(), result);
         }
     }
 }
