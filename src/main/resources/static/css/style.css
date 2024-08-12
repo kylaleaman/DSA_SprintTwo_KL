@@ -94,3 +94,14 @@ li a:hover {
     background-color: #ff1493;
     text-decoration: none;
 }
+
+pre {
+    font-family: 'Courier New', Courier, monospace;
+    white-space: pre-wrap;
+    word-wrap: break-word;
+    padding: 10px;
+    overflow-x: auto;
+    max-width: 100%;
+    margin: 0 auto;
+}
+
