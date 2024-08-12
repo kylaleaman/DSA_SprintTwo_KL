@@ -27,21 +27,22 @@ public class BSTree {
         return root;
     }
 
-    public List<Integer> toList() {
-        List<Integer> result = new ArrayList<>();
-        inOrderTraversal(root, result);
-        return result;
-    }
-
-    public void inOrderTraversal(BSTreeNode node, List<Integer> result) {
-        if (node != null) {
-            inOrderTraversal(node.getLeft(), result);
-            result.add(node.getValue());
-            inOrderTraversal(node.getRight(), result);
-        }
-    }
-
     public BSTreeNode getRoot() {
         return root;
+    }
+
+    // Converts the tree to a list of integers in in-order traversal
+    public List<Integer> toList() {
+        List<Integer> list = new ArrayList<>();
+        inOrderTraversal(root, list);
+        return list;
+    }
+
+    private void inOrderTraversal(BSTreeNode node, List<Integer> list) {
+        if (node != null) {
+            inOrderTraversal(node.getLeft(), list);
+            list.add(node.getValue());
+            inOrderTraversal(node.getRight(), list);
+        }
     }
 }
