@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Tree</title>
+  </head>
+  <body>
+    <h1>Tree Details</h1>
+    <p><strong>ID:</strong> <span th:text="${tree.id}"></span></p>
+    <p><strong>Numbers:</strong> <span th:text="${tree.numbers}"></span></p>
+    <p><strong>Tree Structure:</strong> <span th:text="${tree.treeStructure}"></span></p>
+    <a href="/previous-trees">Back to Previous Trees</a>
+    <a href="/">Back to Home</a>
+  </body>
+</html>

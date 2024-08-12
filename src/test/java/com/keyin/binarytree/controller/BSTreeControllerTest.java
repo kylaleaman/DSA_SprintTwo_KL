@@ -43,7 +43,7 @@ public class BSTreeControllerTest {
         when(bstreeService.convertTreeToJson(tree)).thenReturn(treeJson);
         when(bstreeService.saveTreeEntity(any(BSTreeEntity.class))).thenReturn(entity);
 
-        ResponseEntity<BSTreeEntity> response = bstreeController.processNumbers(numbers);
+        ResponseEntity<BSTreeEntity> response = (ResponseEntity<BSTreeEntity>) bstreeController.processNumbers(numbers.toString());
 
         assertEquals(200, response.getStatusCodeValue());
         assertNotNull(response.getBody());

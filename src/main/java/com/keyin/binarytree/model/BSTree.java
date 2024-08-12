@@ -33,11 +33,15 @@ public class BSTree {
         return result;
     }
 
-    private void inOrderTraversal(BSTreeNode node, List<Integer> result) {
+    public void inOrderTraversal(BSTreeNode node, List<Integer> result) {
         if (node != null) {
             inOrderTraversal(node.getLeft(), result);
             result.add(node.getValue());
             inOrderTraversal(node.getRight(), result);
         }
+    }
+
+    public BSTreeNode getRoot() {
+        return root;
     }
 }
