@@ -11,7 +11,9 @@
     <p><strong>ID:</strong> <span th:text="${tree.id}"></span></p>
     <p><strong>Numbers:</strong> <span th:text="${tree.numbers}"></span></p>
     <p><strong>Tree Structure:</strong></p>
-    <pre th:text="${tree.treeStructure}"></pre>
+    <div class="json-container">
+      <pre th:text="${tree.treeStructure}"></pre>
+    </div>
     <a href="/previous-trees">Back to Previous Trees</a>
     <a href="/">Back to Home</a>
   </body>
