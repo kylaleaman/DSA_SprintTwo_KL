@@ -15,10 +15,10 @@ public class BSTreeEntity {
     private LocalDateTime createdAt;
 
     @Column(name = "numbers", columnDefinition = "TEXT")
-    private String numbers; // Store numbers as a JSON string or comma-separated values
+    private String numbers;
 
     @Column(name = "tree_structure", columnDefinition = "TEXT")
-    private String treeStructure; // Store tree structure as a JSON string
+    private String treeStructure;
 
     // Default constructor
     public BSTreeEntity() {}

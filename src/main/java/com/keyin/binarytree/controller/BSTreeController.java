@@ -4,9 +4,11 @@ import com.keyin.binarytree.model.BSTree;
 import com.keyin.binarytree.model.BSTreeEntity;
 import com.keyin.binarytree.service.BSTreeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -18,18 +20,26 @@ public class BSTreeController {
     private BSTreeService bstreeService;
 
     @PostMapping("/process-numbers")
-    public ResponseEntity<BSTreeEntity> processNumbers(@RequestBody List<Integer> numbers) {
-        BSTree tree = bstreeService.createTree(numbers);
-        String treeJson = bstreeService.convertTreeToJson(tree);
+    public ResponseEntity<?> processNumbers(@RequestParam String numbers) {
+        try {
+            List<Integer> numberList = Arrays.stream(numbers.split(","))
+                    .map(Integer::parseInt)
+                    .collect(Collectors.toList());
+            BSTree tree = bstreeService.createTree(numberList);
+            String treeJson = bstreeService.convertTreeToJson(tree);
 
-        BSTreeEntity treeEntity = new BSTreeEntity(
-                numbers.stream().map(String::valueOf).collect(Collectors.joining(",")),
-                treeJson
-        );
-        BSTreeEntity savedEntity = bstreeService.saveTreeEntity(treeEntity);
+            BSTreeEntity treeEntity = new BSTreeEntity(
+                    numbers,
+                    treeJson
+            );
+            BSTreeEntity savedEntity = bstreeService.saveTreeEntity(treeEntity);
 
-        return ResponseEntity.ok(savedEntity);
+            return ResponseEntity.ok(savedEntity);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error processing numbers");
+        }
     }
+
 
     @GetMapping("/previous-trees")
     public ResponseEntity<List<BSTreeEntity>> getPreviousTrees() {
